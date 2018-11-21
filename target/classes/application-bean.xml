@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- istar数据源 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceIIndexSupport"></property>
+    </bean>
+    <bean id="dataSourceIIndexSupport" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>${mysql.driverClass}</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>${mysql.testServer.url}</value>
+        </property>
+        <property name="user">
+            <value>${mysql.testServer.username}</value>
+        </property>
+        <property name="password">
+            <value>${mysql.testServer.password}</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>${mysql.initialPoolSize}</value>
+        </property>
+        <property name="minPoolSize">
+            <value>${mysql.minPoolSize}</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>${mysql.maxPoolSize}</value>
+        </property>
+        <property name="idleConnectionTestPeriod">
+            <value>${mysql.idleConnectionTestPeriod}</value>
+        </property>
+        <property name="preferredTestQuery">
+            <value>${mysql.preferredTestQuery}</value>
+        </property>
+    </bean>
+    <bean id="manage" class="com.iminer.business.iminergolddata.common.DbOperateHelperImpl" init-method="initialize">
+        <property name="dataSourceTransactionManager" ref="transactionManager"></property>
+    </bean>
+
+    <!-- 114 istar_test数据源 -->
+    <bean id="transactionManagerIstarWebTest" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceIstarWebTest"></property>
+    </bean>
+    <bean id="dataSourceIstarWebTest" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>${mysql.testFansServer.url}</value>
+        </property>
+        <property name="user">
+            <value>${mysql.testFansServer.username}</value>
+        </property>
+        <property name="password">
+            <value>${mysql.testFansServer.password}</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>${mysql.initialPoolSize}</value>
+        </property>
+        <property name="minPoolSize">
+            <value>${mysql.minPoolSize}</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>${mysql.maxPoolSize}</value>
+        </property>
+        <property name="idleConnectionTestPeriod">
+            <value>${mysql.idleConnectionTestPeriod}</value>
+        </property>
+        <property name="preferredTestQuery">
+            <value>${mysql.preferredTestQuery}</value>
+        </property>
+    </bean>
+    <bean id="manageFans" class="com.iminer.business.iminergolddata.common.DbOperateHelperImpl"
+          init-method="initialize">
+        <property name="dataSourceTransactionManager" ref="transactionManagerIstarWebTest"></property>
+    </bean>
+</beans>
